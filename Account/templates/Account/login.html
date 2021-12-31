@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="auth">
+    <div class="inner-auth">
+        <div class="auth-header">
+            <h1>Log In</h1>
+        </div>
+
+        <form action="" onSubmit={submit} class='auth-body'>
+            <div class="auth-email">
+                <label htmlFor="email">Email</label>
+                <input type="text" name="email" id='email' />
+            </div>
+
+            <div class="auth-password">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" id='password' />
+            </div>
+            
+            <button>Log In</button>
+        </form>
+        <div class="auth-footer">
+            <p>Need an account?</p>
+            <a href="{% url 'signup' %}">signup</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
