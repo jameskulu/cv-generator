@@ -2,6 +2,7 @@
 
 {% block title %}Login{% endblock %}
 
+{% load widget_tweaks %}
 {% block content %}
 
 <div class="auth">
@@ -10,18 +11,23 @@
             <h1>Log In</h1>
         </div>
 
-        <form action="" onSubmit={submit} class='auth-body'>
+        <form method="POST" class='auth-body'>
+            {% csrf_token %}
             <div class="auth-email">
                 <label htmlFor="email">Email</label>
-                <input type="text" name="email" id='email' />
+                {% render_field form.username autocomplete="off" %}
+                
             </div>
 
             <div class="auth-password">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" id='password' />
+                {% render_field form.password type="password" %}
+                {% if form.errors %}
+                    <span class="error-message">{{ form.non_field_errors }}</span>
+                {% endif %}
             </div>
             
-            <button>Log In</button>
+            <button type="submit">Log In</button>
         </form>
         <div class="auth-footer">
             <p>Need an account?</p>
