@@ -50,7 +50,7 @@ def generate_cv(request, id):
     html = template.render({"cv": cv})
     options = {"page-size": "Letter", "encoding": "UTF-8"}
     # config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-    pdf = pdfkit.from_string(html, False, options, configuration=pdfkit_config)
+    pdf = pdfkit.from_string(html, False, options, configuration=config)
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = "attachments"
     return response
