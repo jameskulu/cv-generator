@@ -23,7 +23,7 @@
             {% for cv in cvs %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ cv.id }}</td>
+                    <td>{{ cv.cv_file_name }}</td>
                     <td>{{ cv.createdAt }}</td>
                     <td>
                         <a href="{% url 'edit-cv' cv.id %}">

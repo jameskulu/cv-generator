@@ -10,28 +10,103 @@
 <form action="" method="POST">
     {% csrf_token %}
     <div class='form-div'>
-        <label for="">Full Name</label>
+        <label for="">File Name:</label>
+        {% render_field form.cv_file_name %}
+    </div>
+
+    <hr>
+
+    <h3>Personal Information</h3>
+    <div class='form-div'>
+        <label for="">Full Name:</label>
         {% render_field form.name %}
     </div>
     <div class='form-div'>
-        <label for="">Designation</label>
+        <label for="">Designation:</label>
         {% render_field form.designation %}
     </div>
     <div class='form-div'>
-        <label for="">Contact Number</label>
+        <label for="">About:</label>
+        {% render_field form.about %}
+    </div>
+    <div class='form-div'>
+        <label for="">Contact Number:</label>
         {% render_field form.contact %}
     </div>
     <div class='form-div'>
-        <label for="">Address</label>
+        <label for="">Address:</label>
         {% render_field form.address %}
     </div>
     <div class='form-div'>
-        <label for="">Email Address</label>
+        <label for="">Email Address:</label>
         {% render_field form.mail %}
     </div>
     <div class='form-div'>
-        <label for="">LinkedIn URL</label>
+        <label for="">LinkedIn URL:</label>
         {% render_field form.linkedin %}
+    </div>
+    <hr>
+
+    <h3>Company</h3>
+
+    <div class='form-div'>
+        <label for="">Company Name:</label>
+        {% render_field form.experience_company %}
+    </div>
+    <div class='form-div'>
+        <label for="">Company Location:</label>
+        {% render_field form.experience_location %}
+    </div>
+    <div class='form-div'>
+        <label for="">Job Title:</label>
+        {% render_field form.experience_job_title %}
+    </div>
+    <div class='form-div'>
+        <label for="">Job Duration:</label>
+        {% render_field form.experience_duration %}
+    </div>
+    <div class='form-div'>
+        <label for="">Job Description:</label>
+        {% render_field form.experience_description %}
+    </div>
+    <hr>
+
+
+    <h3>Education</h3>
+
+    <div class='form-div'>
+        <label for="">College Name:</label>
+        {% render_field form.education_college %}
+    </div>
+    <div class='form-div'>
+        <label for="">College Location:</label>
+        {% render_field form.education_location %}
+    </div>
+    <div class='form-div'>
+        <label for="">College Degree:</label>
+        {% render_field form.education_degree %}
+    </div>
+    <div class='form-div'>
+        <label for="">College Duration:</label>
+        {% render_field form.education_duration %}
+    </div>
+    <div class='form-div'>
+        <label for="">College Description:</label>
+        {% render_field form.education_description %}
+    </div>
+
+    <hr>
+
+    <h3>Additional Information</h3>
+
+    <div class='form-div'>
+        <label for="">Skills (Insert Comma separated for multiple):</label>
+        {% render_field form.skills placeholder='Python,Java,MySQL' %}
+    </div>
+
+    <div class='form-div'>
+        <label for="">Interests (Insert Comma separated for multiple):</label>
+        {% render_field form.interests placeholder='Singing,Music' %}
     </div>
 
     <button class='button' type="submit">Update</button>

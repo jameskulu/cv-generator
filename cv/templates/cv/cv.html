@@ -114,21 +114,32 @@
     <div class="full-name">
       <span class="first-name">{{cv.name}}</span> 
     </div>
+    <span class="position">{{ cv.designation }} </span>
     <div class="contact-info">
-      <span class="email">Email: </span>
-      <span class="email-val">{{ cv.mail }}</span>
-      <span class="separator"></span>
-      <span class="phone">Phone: </span>
-      <span class="phone-val">{{ cv.contact }}</span>
-      <span class="separator"></span>
-      <span class="phone">LinkedIn: </span>
-      <a href="{{ cv.linkedin }}" class="url-val">link</a>
+      <p>
+        <span class="email">Email: </span>
+        <span class="email-val">{{ cv.mail }}</span>
+      </p>
+      <p>
+        <span class="phone">Phone: </span>
+        <span class="phone-val">{{ cv.contact }}</span>
+      </p>
+      <p>
+        <span class="email">LinkedIn: </span>
+        <span class="phone-val">{{ cv.linkedin }}</span>
+      </p>
+      <p>
+        <span class="email">Address: </span>
+        <span class="address-val">{{ cv.address }}</span>
+      </p>
+      <!-- <span class="separator"></span> -->
+      
     </div>
     
     <div class="about">
-      <span class="position">{{ cv.designation }} </span>
+      
       <span class="desc">
-        I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow. 
+        {{ cv.about }}
       </span>
     </div>
   </div>
@@ -136,18 +147,22 @@
     <div class="section">
       <div class="section__title">Experience</div>
       <div class="section__list">
+
         <div class="section__list-item">
           <div class="left">
-            <div class="name">KlowdBox</div>
-            <div class="addr">San Fr, CA</div>
-            <div class="duration">Jan 2011 - Feb 2015</div>
+            <div class="name">{{ cv.experience_company|default_if_none:"" }}</div>
+            <div class="addr">{{ cv.experience_job_title|default_if_none:"" }}</div>
+            <div class="addr">{{ cv.experience_location|default_if_none:"" }}</div>
+            <div class="duration">{{ cv.experience_duration|default_if_none:"" }}</div>
+            <h4>Description</h4>
+            <div class="desc">{{ cv.experience_description|default_if_none:"" }}</div>
           </div>
-          <div class="right">
-            <div class="name">Fr developer</div>
-            <div class="desc">did This and that</div>
-          </div>
+          <!-- <div class="right">
+            <div class="name">{{ cv.experience_job_title }}</div>
+            <div class="desc">{{ cv.experience_description }}</div>
+          </div> -->
         </div>
-                <div class="section__list-item">
+                <!-- <div class="section__list-item">
           <div class="left">
             <div class="name">Akount</div>
             <div class="addr">San Monica, CA</div>
@@ -157,40 +172,33 @@
             <div class="name">Fr developer</div>
             <div class="desc">did This and that</div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
+
     <div class="section">
       <div class="section__title">Education</div>
       <div class="section__list">
         <div class="section__list-item">
           <div class="left">
-            <div class="name">Sample Institute of technology</div>
-            <div class="addr">San Fr, CA</div>
-            <div class="duration">Jan 2011 - Feb 2015</div>
+            <div class="name">{{ cv.education_college|default_if_none:"" }}</div>
+            <div class="addr">{{ cv.education_degree|default_if_none:"" }}</div>
+            <div class="addr">{{ cv.experience_location|default_if_none:"" }}</div>
+            <div class="duration">{{ cv.education_duration|default_if_none:"" }}</div>
+            <h4>Description</h4>
+            <div class="desc">{{ cv.experience_description|default_if_none:"" }}</div>
           </div>
-          <div class="right">
+          <!-- <div class="right">
             <div class="name">Fr developer</div>
-            <div class="desc">did This and that</div>
-          </div>
-        </div>
-        <div class="section__list-item">
-          <div class="left">
-            <div class="name">Akount</div>
-            <div class="addr">San Monica, CA</div>
-            <div class="duration">Jan 2011 - Feb 2015</div>
-          </div>
-          <div class="right">
-            <div class="name">Fr developer</div>
-            <div class="desc">did This and that</div>
-          </div>
+            <div class="desc">{{ cv.experience_description }}</div>
+          </div> -->
         </div>
 
       </div>
       
   </div>
-     <div class="section">
+     <!-- <div class="section">
       <div class="section__title">Projects</div> 
        <div class="section__list">
          <div class="section__list-item">
@@ -204,64 +212,39 @@
            </div>
          </div>
        </div>
-    </div>
+    </div> -->
      <div class="section">
        <div class="section__title">Skills</div>
        <div class="skills">
-         <div class="skills__item">
-           <div class="left"><div class="name">
-             Javascript
-             </div></div>
-           <div class="right">
-                          <input  id="ck1" type="checkbox" checked/>
 
-             <label for="ck1"></label>
-                          <input id="ck2" type="checkbox" checked/>
-
-              <label for="ck2"></label>
-                         <input id="ck3" type="checkbox" />
-
-              <label for="ck3"></label>
-                           <input id="ck4" type="checkbox" />
-            <label for="ck4"></label>
-                          <input id="ck5" type="checkbox" />
-              <label for="ck5"></label>
-
+        {% for skill in cv.skills %}
+        <div class="skills__item">
+          <div class="left">
+            <div class="name">
+             {{ skill|default_if_none:"" }}
+            </div>
            </div>
-         </div>
+        </div>
+        {% endfor %}
          
+
        </div>
-       <div class="skills__item">
-           <div class="left"><div class="name">
-             CSS</div></div>
-           <div class="right">
-                          <input  id="ck1" type="checkbox" checked/>
-
-             <label for="ck1"></label>
-                          <input id="ck2" type="checkbox" checked/>
-
-              <label for="ck2"></label>
-                         <input id="ck3" type="checkbox" />
-
-              <label for="ck3"></label>
-                           <input id="ck4" type="checkbox" />
-            <label for="ck4"></label>
-                          <input id="ck5" type="checkbox" />
-              <label for="ck5"></label>
-
-           </div>
-         </div>
+       
          
        </div>
      <div class="section">
      <div class="section__title">
        Interests
        </div>
-       <div class="section__list">
-         <div class="section__list-item">
-                  Football, programming.
-          </div>
-       </div>
+
+       {% for interest in cv.interests %}
+        <div class="section__list">
+          <div class="section__list-item">
+            {{ interest|default_if_none:"" }}
+            </div>
+        </div>
+       {% endfor %}
+
      </div>
      </div>
   </div>

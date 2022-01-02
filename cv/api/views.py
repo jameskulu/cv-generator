@@ -19,7 +19,8 @@ def cv_view(request):
     name = request.query_params.get("name")
     paginator = PageNumberPagination()
     paginator.page_size = 10
-    cvs = CV.objects.filter(name=name)
+    # cvs = CV.objects.filter(name=name)
+    cvs = CV.objects.all()
     result_page = paginator.paginate_queryset(cvs, request)
     serializer = CVSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
