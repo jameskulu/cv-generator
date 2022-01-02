@@ -58,7 +58,7 @@ def signup(request):
 @method_decorator(unauthenticated_user, name="dispatch")
 class LoginFormView(SuccessMessageMixin, LoginView):
     template_name = "Account/login.html"
-    success_url = "home"
+    success_url = "list-of-cv"
     redirect_authenticated_user = False
     success_message = "You are successfully logged in."
 

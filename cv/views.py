@@ -5,11 +5,13 @@ import subprocess
 import sys
 
 import pdfkit
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template import loader
 
+from .forms import CVCreateForm
 from .models import CV
 
 
@@ -19,7 +21,6 @@ def home(request):
 
 @login_required
 def list_of_cv(request):
-    print(request.user.id)
     cvs = CV.objects.filter(user=request.user.id)
     return render(request, "cv/list.html", {"cvs": cvs})
 
@@ -50,3 +51,49 @@ def generate_cv(request, id):
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = "attachments"
     return response
+
+
+@login_required
+def delete_cv(request, id):
+    cv = CV.objects.get(id=id)
+    if request.user.id == cv.user.id:
+        cv.delete()
+        messages.success(request, "CV deleted successfully")
+    else:
+        messages.error(request, "You do not have permission to delete this CV")
+    return redirect("list-of-cv")
+
+
+@login_required
+def create(request):
+    form = CVCreateForm()
+    if request.method == "POST":
+        form = CVCreateForm(request.POST)
+        if form.is_valid():
+            cv = form.save(commit=False)
+            cv.user = request.user
+            cv.save()
+            messages.success(request, "CV saved successfully")
+            return redirect("list-of-cv")
+    return render(request, "cv/create.html", {"form": form})
+
+
+@login_required
+def edit_cv(request, id):
+    cv = CV.objects.get(pk=id)
+    if cv.user == request.user:
+        if request.method == "POST":
+            form = CVCreateForm(request.POST, instance=cv)
+            if form.is_valid():
+                cv = form.save(commit=False)
+                cv.user = request.user
+                cv.save()
+                messages.success(request, "CV updated successfully")
+                return redirect("list-of-cv")
+        else:
+            form = CVCreateForm(instance=cv)
+    else:
+        messages.success(request, "You are not authorized to view this page.")
+        return redirect("list-of-cv")
+    context = {"form": form}
+    return render(request, "cv/edit.html", context)

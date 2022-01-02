@@ -6,23 +6,39 @@
 
 <h1>List of CVs</h1>
 
+<a href="{% url 'create' %}"><button class="button">Create a CV</button></a>
+
 <div style="overflow-x:auto;">
     <table class='styled-table'>
         <thead>
             <tr>
+                <th>S.N.</th>
                 <th>Name</th>
-                <th>Download</th>
-                <th>Action</th>
                 <th>Created At</th>
+                <th>Action</th>
+                <th>Download</th>
             </tr>
         </thead>
         <tbody>
             {% for cv in cvs %}
                 <tr>
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ cv.id }}</td>
-                    <td><a href="{% url 'generate-cv' cv.id %}"><button>Download CV</button></a></td>
-                    <td><button>Delete</button></td>
                     <td>{{ cv.createdAt }}</td>
+                    <td>
+                        <a href="{% url 'edit-cv' cv.id %}">
+                            <i style='color:blue;' class="fas fa-edit"></i>
+                        <a>
+                        &nbsp;
+                        <a href="{% url 'delete-cv' cv.id %}">
+                            <i style='color:red;' class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'generate-cv' cv.id %}">
+                            <i style='color:blue;' class="fas fa-download"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

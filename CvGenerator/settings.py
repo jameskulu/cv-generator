@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # Installed apps
     "widget_tweaks",
     "six",
+    "rest_framework",
     # Custom Apps
     "Account.apps.AccountConfig",
     "cv.apps.CvConfig",
@@ -78,8 +79,12 @@ WSGI_APPLICATION = "CvGenerator.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DATABASE_NAME"),
+        "USER": config("DATABASE_USER"),
+        "PASSWORD": config("DATABASE_PASSWORD"),
+        "HOST": config("DATABASE_HOST"),
+        "PORT": config("DATABASE_PORT"),
     }
 }
 
@@ -129,7 +134,7 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = "accounts/login"
 
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "list-of-cv"
 
 # Email Configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -12,3 +12,6 @@ class CV(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updatedAt = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    class Meta:
+        ordering = ["-createdAt"]

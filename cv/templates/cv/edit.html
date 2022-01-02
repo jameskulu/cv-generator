@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit a CV{% endblock %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+<h1>Edit CV</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class='form-div'>
+        <label for="">Full Name</label>
+        {% render_field form.name %}
+    </div>
+    <div class='form-div'>
+        <label for="">Designation</label>
+        {% render_field form.designation %}
+    </div>
+    <div class='form-div'>
+        <label for="">Contact Number</label>
+        {% render_field form.contact %}
+    </div>
+    <div class='form-div'>
+        <label for="">Address</label>
+        {% render_field form.address %}
+    </div>
+    <div class='form-div'>
+        <label for="">Email Address</label>
+        {% render_field form.mail %}
+    </div>
+    <div class='form-div'>
+        <label for="">LinkedIn URL</label>
+        {% render_field form.linkedin %}
+    </div>
+
+    <button class='button' type="submit">Update</button>
+</form>
+
+{% endblock %}
