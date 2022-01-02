@@ -3,6 +3,7 @@ import os
 import platform
 import subprocess
 import sys
+from io import BytesIO
 
 import pdfkit
 from django.contrib import messages
@@ -10,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 from .forms import CVCreateForm
 from .models import CV
@@ -39,31 +42,36 @@ def list_of_cv(request):
 #     pdfkit_config = pdfkit.configuration(c=WKHTMLTOPDF_CMD)
 
 
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type="application/pdf")
+    return None
+
+
+# @login_required
+# def generate_cv(request, id):
+#     cv = CV.objects.get(id=id)
+#     template = loader.get_template("cv/cv.html")
+#     html = template.render({"cv": cv})
+#     options = {"page-size": "Letter", "encoding": "UTF-8"}
+#     # config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+#     pdf = pdfkit.from_string(html, False, options)
+#     response = HttpResponse(pdf, content_type="application/pdf")
+#     response["Content-Disposition"] = "attachments"
+#     return response
+
+
 @login_required
 def generate_cv(request, id):
-
-    if platform.system() == "Windows":
-        pdfkit_config = pdfkit.configuration(
-            wkhtmltopdf=os.environ.get("WKHTMLTOPDF_BINARY", "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-        )
-    else:
-        WKHTMLTOPDF_CMD = (
-            subprocess.Popen(["which", os.environ.get("WKHTMLTOPDF_BINARY", "wkhtmltopdf")], stdout=subprocess.PIPE)
-            .communicate()[0]
-            .strip()
-        )
-        pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-    # if platform.system() == "Darwin":
-    #     pdfkit_config = pdfkit.configuration()
-    # else:
-    #     pdfkit_config = pdfkit.configuration(wkhtmltopdf="./bin/wkhtmltopdf")
     cv = CV.objects.get(id=id)
-    template = loader.get_template("cv/cv.html")
-    html = template.render({"cv": cv})
-    options = {"page-size": "Letter", "encoding": "UTF-8"}
-    # config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-    pdf = pdfkit.from_string(html, False, options)
+    pdf = render_to_pdf("cv/cv.html", {"cv": cv})
     response = HttpResponse(pdf, content_type="application/pdf")
+    # filename = "Invoice_%s.pdf" % ("12341231")
+    # content = "attachment; filename='%s'" % (filename)
     response["Content-Disposition"] = "attachments"
     return response
 
