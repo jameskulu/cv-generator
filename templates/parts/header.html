@@ -1,0 +1,28 @@
+<header>
+    <div class="inner-header">
+
+        <a href="/">
+            <div class="logo">
+                <img src="" alt="" />
+                <h2>CV<span>Generator</span></h2>
+            </div>
+        </a>
+
+        <nav>
+            <i id='toggle-button' class="fas fa-bars"></i>
+            <ul id='navbar'>
+                <li><a class='active' href="/">Home</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'list-of-cv' %}">CVs</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+    </div>
+</header>
