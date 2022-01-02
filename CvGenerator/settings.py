@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "six",
     "rest_framework",
+    "corsheaders",
     # Custom Apps
     "Account.apps.AccountConfig",
     "cv.apps.CvConfig",
@@ -143,3 +145,16 @@ EMAIL_HOST = config("EMAIL_HOST", default="localhost")
 EMAIL_PORT = config("EMAIL_PORT", default=25, cast=int)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False, cast=bool)
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://api-gigshire.herokuapp.com",
+# ]
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
