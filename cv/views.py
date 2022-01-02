@@ -1,16 +1,9 @@
-import io
-import os
-import platform
-import subprocess
-import sys
 from io import BytesIO
 
-import pdfkit
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.template import loader
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
@@ -28,20 +21,6 @@ def list_of_cv(request):
     return render(request, "cv/list.html", {"cvs": cvs})
 
 
-# if platform.system() == "Windows":
-#     pdfkit_config = pdfkit.configuration(
-#         wkhtmltopdf=os.environ.get("WKHTMLTOPDF_BINARY", "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-#     )
-# else:
-#     os.environ["PATH"] += os.pathsep + os.path.dirname(sys.executable)
-#     WKHTMLTOPDF_CMD = (
-#         subprocess.Popen(["which", os.environ.get("WKHTMLTOPDF_BINARY", "wkhtmltopdf")], stdout=subprocess.PIPE)
-#         .communicate()[0]
-#         .strip()
-#     )
-#     pdfkit_config = pdfkit.configuration(c=WKHTMLTOPDF_CMD)
-
-
 def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
     html = template.render(context_dict)
@@ -50,19 +29,6 @@ def render_to_pdf(template_src, context_dict={}):
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type="application/pdf")
     return None
-
-
-# @login_required
-# def generate_cv(request, id):
-#     cv = CV.objects.get(id=id)
-#     template = loader.get_template("cv/cv.html")
-#     html = template.render({"cv": cv})
-#     options = {"page-size": "Letter", "encoding": "UTF-8"}
-#     # config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
-#     pdf = pdfkit.from_string(html, False, options)
-#     response = HttpResponse(pdf, content_type="application/pdf")
-#     response["Content-Disposition"] = "attachments"
-#     return response
 
 
 @login_required
