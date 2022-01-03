@@ -49,6 +49,7 @@ def signup(request):
             to_email = form.cleaned_data.get("email")
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
+            messages.success(request, "Your account has been created successfully.")
             return HttpResponseRedirect("/accounts/email-confirmation")
     else:
         form = SignupForm()
