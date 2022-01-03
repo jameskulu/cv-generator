@@ -318,3 +318,7 @@ header .inner-header nav ul li a:hover {
     align-items: center;
     justify-content: space-evenly;
 }
+
+.hero-section img {
+    width: 500px;
+}
