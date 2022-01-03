@@ -10,7 +10,7 @@ Web App Url : https://cv-generator-task.herokuapp.com/
 -   CV generating using input fields
 -   Edit, Delete and Download CV functionality
 
-## Technologies
+## Technologies and Tools
 
 -   Python
 -   Django
@@ -18,6 +18,7 @@ Web App Url : https://cv-generator-task.herokuapp.com/
 -   Celery
 -   RabbitMQ
 -   Docker
+-   Cleaver Cloud
 -   Heroku
 
 ## Installation
