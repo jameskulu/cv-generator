@@ -310,3 +310,11 @@ header .inner-header nav ul li a:hover {
     color: #fff;
     text-transform: uppercase;
 }
+
+.hero-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
