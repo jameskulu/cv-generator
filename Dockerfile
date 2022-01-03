@@ -8,7 +8,4 @@ WORKDIR /code
 COPY requirements.txt /code
 RUN pip install -r requirements.txt
 COPY . /code
-# Run as non-root user
-RUN chown -R django:django /app
-USER django
 CMD gunicorn CvGenerator.wsgi:application
