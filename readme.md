@@ -28,6 +28,11 @@ Web App Url : https://cv-generator-task.herokuapp.com/
 4. Migrate the database using `python manage.py migrate` command.
 5. Run the server using `python manage.py runserver` command.
 
+#### To access admin panel
+
+username: james
+password: madrids
+
 #### Docker
 
 if you have docker on your machine use command `docker-compose build` to build the application and `docker-compose up` to run the application.
