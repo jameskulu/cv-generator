@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
     WEB_CONCURRENCY=3
 WORKDIR /code
-COPY requirements.txt /code
+COPY ./requirements.txt /requirements.txt
 RUN pip install -r requirements.txt
 COPY . /code
 CMD gunicorn CvGenerator.wsgi:application

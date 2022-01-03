@@ -320,5 +320,20 @@ header .inner-header nav ul li a:hover {
 }
 
 .hero-section img {
-    width: 500px;
+    width: 400px;
+}
+
+.hero-section p {
+    margin-top: 15px;
+}
+
+.hero-section button {
+    padding: 8px 15px;
+    outline: none;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--mainColor);
+    color: #fff;
+    text-transform: uppercase;
 }
