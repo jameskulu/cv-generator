@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 
 # imports for logout
@@ -8,7 +9,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -20,6 +21,7 @@ from .decoraters import unauthenticated_user
 
 # imports for Signup
 from .forms import SignupForm
+from .tasks import send_email_task
 from .tokens import account_activation_token
 
 
@@ -47,6 +49,11 @@ def signup(request):
                 },
             )
             to_email = form.cleaned_data.get("email")
+
+            # Celery
+            # fromMail = settings.EMAIL_HOST_USER
+            # send_email_task.delay(mail_subject, message, fromMail, [to_email])
+
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
             messages.success(request, "Your account has been created successfully.")
