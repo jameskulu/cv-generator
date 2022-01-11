@@ -4,7 +4,7 @@ from pathlib import Path
 import django_heroku
 from decouple import config
 
-CELERY_BROKER_URL = "amqps://tauwdvfn:mNDDv-jX15H3_mUs0lpK7R9a6NaIUEFt@rattlesnake.rmq.cloudamqp.com/tauwdvfn"
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
