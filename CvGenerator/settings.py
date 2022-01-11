@@ -4,6 +4,13 @@ from pathlib import Path
 import django_heroku
 from decouple import config
 
+CELERY_BROKER_URL = "amqps://tauwdvfn:mNDDv-jX15H3_mUs0lpK7R9a6NaIUEFt@rattlesnake.rmq.cloudamqp.com/tauwdvfn"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kathmandu"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +24,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -30,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Installed apps
+    "django_celery_results",
     "widget_tweaks",
     "six",
     "rest_framework",

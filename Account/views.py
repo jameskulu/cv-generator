@@ -51,11 +51,11 @@ def signup(request):
             to_email = form.cleaned_data.get("email")
 
             # Celery
-            # fromMail = settings.EMAIL_HOST_USER
-            # send_email_task.delay(mail_subject, message, fromMail, [to_email])
+            fromMail = settings.EMAIL_HOST_USER
+            send_email_task.delay(mail_subject, message, fromMail, [to_email])
 
-            email = EmailMessage(mail_subject, message, to=[to_email])
-            email.send()
+            # email = EmailMessage(mail_subject, message, to=[to_email])
+            # email.send()
             messages.success(request, "Your account has been created successfully.")
             return HttpResponseRedirect("/accounts/email-confirmation")
     else:
