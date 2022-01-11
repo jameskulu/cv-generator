@@ -1,6 +1,15 @@
 version: '3.9'
 
 services:
+    rabbit:
+        hostname: rabbit
+        image: 'rabbitmq:3-management'
+        environment:
+            - RABBITMQ_DEFAULT_USER=${CELERY_BROKER_USER}
+            - RABBITMQ_DEFAULT_PASS=${CELERY_BROKER_PASSWORD}
+        ports:
+            - '15672:15672'
+            - '5672:5672'
     db:
         image: postgres
         volumes:
@@ -20,3 +29,4 @@ services:
             - '8000:8000'
         depends_on:
             - db
+            - rabbit

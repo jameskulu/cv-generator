@@ -9,3 +9,4 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r requirements.txt
 COPY . /code
 CMD gunicorn CvGenerator.wsgi:application
+ENTRYPOINT celery -A CvGenerator worker --loglevel=info
