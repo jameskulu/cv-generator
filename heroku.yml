@@ -7,3 +7,11 @@ release:
         - python manage.py collectstatic --noinput
 run:
     web: gunicorn CvGenerator.wsgi
+    celery:
+        command:
+            - celery -A CvGenerator worker -l INFO
+        image: celery
+    celery-beat:
+        command:
+            - celery -A CvGenerator beat -l INFO
+        image: celery-beat
